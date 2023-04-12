@@ -25,6 +25,17 @@ const carSchema = new mongoose.Schema(
         to: { type: String, required: true },
       },
     ],
+    ratings: [
+      {
+        star: Number,
+        comment: String,
+        postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+      },
+    ],
+    totalRatings: {
+      type: String,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

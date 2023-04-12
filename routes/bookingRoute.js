@@ -59,4 +59,14 @@ router.get("/getallbookings", async (req, res) => {
     return res.status(400).json(error);
   }
 });
+
+router.post("/update-status", async (req, res) => {
+  try {
+    const booking = await Booking.findOne({ _id: req.body._id });
+    await booking.updateOne({ $set: { approve: req.body.status } });
+    res.send("Your update status is successfull");
+  } catch {
+    return res.status(400).json(error);
+  }
+});
 module.exports = router;

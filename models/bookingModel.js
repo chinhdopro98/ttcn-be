@@ -10,7 +10,8 @@ const bookingSchema = new mongoose.Schema(
       from: { type: String, require: true },
       to: { type: String, require: true },
     },
-
+    statusPayment: { type: Number, require: true },
+    approve: { type: Number, require: true },
     transactionId: { type: String },
     driverRequired: { type: String },
   },
