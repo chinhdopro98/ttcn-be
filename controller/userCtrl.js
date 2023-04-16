@@ -19,6 +19,7 @@ const createUser = asyncHandler(async (req, res) => {
       lastname: newUser?.lastname,
       email: newUser?.email,
       mobile: newUser?.mobile,
+      role: newUser?.role,
       token: generateToken(newUser?._id),
     });
   } catch (error) {
@@ -28,6 +29,7 @@ const createUser = asyncHandler(async (req, res) => {
 });
 
 const loginUserCtrl = asyncHandler(async (req, res) => {
+  console.log(req.body);
   const { username, password } = req.body;
   const findUser = await User.findOne({ username });
   if (findUser && (await findUser.isPasswordMatched(password))) {
@@ -42,6 +44,7 @@ const loginUserCtrl = asyncHandler(async (req, res) => {
       lastname: findUser?.lastname,
       username: findUser?.username,
       email: findUser?.email,
+      role: findUser?.role,
       mobile: findUser?.mobile,
       token: generateToken(findUser?._id),
     });

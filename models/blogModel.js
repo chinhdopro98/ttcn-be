@@ -12,7 +12,7 @@ var blogSchema = new mongoose.Schema(
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "blogcategories",
       required: true,
     },
     numViews: {
@@ -31,16 +31,19 @@ var blogSchema = new mongoose.Schema(
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "users",
       },
     ],
     disLikes: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "users",
       },
     ],
-    image: [],
+    image: {
+      type: String,
+      required: false,
+    },
     author: {
       type: String,
       default: "Admin",

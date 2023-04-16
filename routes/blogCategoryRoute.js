@@ -1,7 +1,12 @@
 const express = require("express");
-const { createBlogCategory } = require("../controller/blogCategoryCtrl");
+const {
+  createBlogCategory,
+  getAll,
+  updateCategoryBlog,
+  deleteCategoryBlog,
+} = require("../controller/blogCategoryCtrl");
 
 const router = express.Router();
-
-// router.post("/create", upload.single("image"), createBlogCategory);
+router.get("/get-all", getAll);
+router.delete("/delete/:id", deleteCategoryBlog);
 module.exports = router;
