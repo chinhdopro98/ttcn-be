@@ -10,7 +10,7 @@ const getAllCars = asyncHandler(async (req, res) => {
   let queryStr = JSON.stringify(queryObj);
   queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (match) => `$${match}`);
   try {
-    let query = Car.find(JSON.parse(queryStr));
+    let query = Car.find(JSON.parse(queryStr)).populate("user");
     // sortting;
     if (req.query.sort) {
       if (+req.query.sort === 1) {
@@ -35,15 +35,15 @@ const getAllCars = asyncHandler(async (req, res) => {
     } else {
       query = query.select("-__v");
     }
-    if (user.role === "Admin") {
+    if (user.role !== "admin") {
       query = query.find({
         active: "true",
       });
     }
     // pagination
 
-    const page = req.query.page;
-    const limit = req.query.limit;
+    const page = +req.query.page;
+    const limit = +req.query.limit;
     const skip = (page - 1) * limit;
     let carCount = 1;
     query = query.skip(skip).limit(limit);
@@ -71,13 +71,16 @@ const getAllCars = asyncHandler(async (req, res) => {
       cars: car,
     });
   } catch (error) {
-    throw new Error(error);
+    res.json({
+      carCount: 0,
+      cars: [],
+    });
   }
 });
 const getCar = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
-    const findCar = await Car.findById(id);
+    const findCar = await Car.findById(id).populate("user");
     res.json(findCar);
   } catch (error) {
     throw new Error(error);
@@ -141,6 +144,7 @@ const createCar = asyncHandler(async (req, res) => {
     res.json({
       status: "success",
       newCar,
+      user,
     });
   } catch (error) {
     throw new Error(error);

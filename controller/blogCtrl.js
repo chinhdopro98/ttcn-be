@@ -26,7 +26,6 @@ const createBlog = asyncHandler(async (req, res) => {
 
 const updateBlog = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   const title = req.body.title;
   const description = req.body.description;
   const category = req.body.category;
@@ -50,6 +49,8 @@ const updateBlog = asyncHandler(async (req, res) => {
         }
       );
     }
+    updateBlog = await Blog.findById(id);
+
     res.json({
       status: "success",
       updateBlog,
@@ -81,6 +82,17 @@ const updateBlog = asyncHandler(async (req, res) => {
 //   }
 // });
 
+const getOneBlog = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  try {
+    const getBlog = await Blog.findById(id);
+    res.json({
+      getBlog,
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 const getAllBlogs = asyncHandler(async (req, res) => {
   try {
     const getBlogs = await Blog.find();
@@ -94,7 +106,7 @@ const getAllBlogs = asyncHandler(async (req, res) => {
 
 const deleteBlog = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
   try {
     const deleteBlog = await Blog.findByIdAndDelete(id);
     res.json({
@@ -212,6 +224,7 @@ module.exports = {
   getAllBlogs,
   updateBlog,
   // getBlog,
+  getOneBlog,
   deleteBlog,
   // likeBlog,
   // disLikeBlog,

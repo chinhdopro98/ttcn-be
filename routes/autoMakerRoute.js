@@ -34,8 +34,7 @@ router.post("/delete-automaker", async (req, res) => {
     return res.status(400).json(error);
   }
 });
-router.post("/craete", async (req, res) => {
-  console.log(req.body);
+router.post("/create", async (req, res) => {
   try {
     const automaker = new autoMakerModel({
       name_automaker: req.body.name_automaker,

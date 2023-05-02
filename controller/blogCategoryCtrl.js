@@ -44,6 +44,7 @@ const updateCategoryBlog = asyncHandler(async (req, res) => {
         }
       );
     }
+    updateBlogCategory = await BlogCategory.findById(id);
     res.json({
       status: "success",
       updateBlogCategory,
