@@ -4,12 +4,15 @@ const {
   loginUserCtrl,
   getAllUser,
   editUser,
+  editPofile,
 } = require("../controller/userCtrl");
+const { authMiddleware } = require("../middlewares/authMiddleware");
 const router = express.Router();
 router.post("/register", createUser);
 router.post("/login", loginUserCtrl);
 router.get("/getall", getAllUser);
 router.patch("/edit-user/:id", editUser);
+router.post("/edit-profile/", authMiddleware, editPofile);
 
 // router.post("/register", async (req, res) => {
 //   const { fullname, username, password, email, phone, role } = req.body;

@@ -38,6 +38,7 @@ const getAllCars = asyncHandler(async (req, res) => {
     if (user.role !== "admin") {
       query = query.find({
         active: "true",
+        hide: true,
       });
     }
     // pagination
@@ -60,6 +61,7 @@ const getAllCars = asyncHandler(async (req, res) => {
         searhname = Car.find({
           name: { $regex: req.query.search, $options: "i" },
           active: "true",
+          hide: true,
         });
       }
       carCount = await Car.countDocuments(searhname);
@@ -250,6 +252,22 @@ const approveCar = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+const hishowCar = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const hideShowCar = await Car.findByIdAndUpdate(id, {
+    hide: !req.body.hide,
+  });
+  res.json({
+    status: "success",
+    id,
+    hide: req.body.hide,
+  });
+  try {
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 module.exports = {
   getAllCars,
   getCar,
@@ -258,4 +276,5 @@ module.exports = {
   updateCar,
   getCarByUser,
   approveCar,
+  hishowCar,
 };

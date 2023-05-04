@@ -83,7 +83,41 @@ const editUser = asyncHandler(async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+const editPofile = asyncHandler(async (req, res) => {
+  const id = req.body._id;
+  const existingUser = await User.findOne({
+    username: req.body.username,
+    _id: { $ne: id },
+  });
+  if (existingUser) {
+    return res.status(400).json({ error: "Username already exists" });
+  }
+  try {
+    const user = await User.findById(id);
+    user.firstname = req.body.firstname;
+    user.lastname = req.body.lastname;
+    user.username = req.body.username;
+    user.email = req.body.email;
+    user.phone = req.body.phone;
+    const updateUser = await user.save();
+    res.send({
+      updateUser: {
+        _id: updateUser?._id,
+        username: updateUser?.username,
+        firstname: updateUser?.firstname,
+        lastname: updateUser?.lastname,
+        email: updateUser?.email,
+        phone: updateUser?.phone,
+        role: updateUser?.role,
+      },
+      status: "success",
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 module.exports = {
+  editPofile,
   editUser,
   createUser,
   loginUserCtrl,

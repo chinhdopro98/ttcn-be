@@ -20,7 +20,7 @@ const carSchema = new mongoose.Schema(
     gear: { type: Number, require: true },
     note: { type: String, require: true },
     active: { type: String, require: true, default: false },
-    hide: { type: Boolean, default: false },
+    hide: { type: Boolean, default: true },
     provider: { type: mongoose.Schema.Types.ObjectId, ref: "providers" },
     user: {
       type: mongoose.Schema.Types.ObjectId,

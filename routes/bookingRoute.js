@@ -88,6 +88,14 @@ router.post("/update-status", async (req, res) => {
   try {
     const booking = await Booking.findOne({ _id: req.body._id });
     await booking.updateOne({ $set: { approve: req.body.approve } });
+    // const resetUrl = `Hi, Please follow this link to reset Your Password . this link  is valid till 10 minutes from now`;
+    // const datas = {
+    //   to: "nguyenchinh291298@gmail.com",
+    //   text: "Hey USER",
+    //   subject: "Forgot Password Link",
+    //   html: resetUrl,
+    // };
+    // sendMail(datas);
     res.send({
       id: req.body._id,
       status: "success",
