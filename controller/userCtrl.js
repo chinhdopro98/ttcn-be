@@ -116,10 +116,20 @@ const editPofile = asyncHandler(async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+const deleteUser = asyncHandler(async (req, res) => {
+  try {
+    await User.findOneAndDelete({ _id: req.body._id });
+    res.send("User delete succesfully");
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+});
 module.exports = {
   editPofile,
   editUser,
   createUser,
   loginUserCtrl,
   getAllUser,
+  deleteUser,
 };

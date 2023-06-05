@@ -11,9 +11,9 @@ const sendMail = asyncHandler(async (data, req, res) => {
       pass: process.env.MP,
     },
   });
-  console.log(data);
+
   let info = await tranporter.sendMail({
-    from: "Hey <abc@gmail.com>",
+    from: "Công ty cho thuê xe auto-movie <abc@gmail.com>",
     to: data.to,
     subject: data.subject,
     text: data.text,

@@ -5,6 +5,7 @@ const asyncHandler = require("express-async-handler");
 // const cloudinaryUploadImg = require("../utils/cloudinary");
 const createBlog = asyncHandler(async (req, res) => {
   try {
+    console.log(req.body);
     const title = req.body.title;
     const description = req.body.description;
     const category = req.body.category;

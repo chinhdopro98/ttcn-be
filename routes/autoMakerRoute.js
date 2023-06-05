@@ -41,7 +41,7 @@ router.post("/create", async (req, res) => {
       id_category: req.body.id_category,
     });
     await automaker.save();
-    res.send("Automaker created succesfully");
+    res.send(automaker);
   } catch (error) {
     return res.status(400).json(error);
   }

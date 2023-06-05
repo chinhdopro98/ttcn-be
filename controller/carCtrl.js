@@ -1,4 +1,6 @@
 const Car = require("../models/carModel");
+const Blog = require("../models/blogModel");
+const Booking = require("../models/bookingModel");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const getAllCars = asyncHandler(async (req, res) => {
@@ -198,6 +200,7 @@ const updateCar = asyncHandler(async (req, res) => {
     } else {
       const image = req.file.path;
       updateCar = await Car.findByIdAndUpdate(id, {
+        image,
         name,
         capacity,
         fuelType,
@@ -219,7 +222,7 @@ const updateCar = asyncHandler(async (req, res) => {
     }
     res.json({
       status: "success",
-      updateCar,
+      updateCar: await Car.findById(id),
     });
   } catch (error) {
     throw new Error(error);
@@ -268,6 +271,14 @@ const hishowCar = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+const totalData = asyncHandler(async (req, res) => {
+  const totalCar = await Car.count();
+  const totalUser = await User.count();
+  const totalBooking = await Booking.count();
+  const totalBlog = await Blog.count();
+  res.json({ totalCar, totalUser, totalBooking, totalBlog });
+});
 module.exports = {
   getAllCars,
   getCar,
@@ -277,4 +288,5 @@ module.exports = {
   getCarByUser,
   approveCar,
   hishowCar,
+  totalData,
 };

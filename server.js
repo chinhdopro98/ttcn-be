@@ -57,9 +57,9 @@ app.use(
 );
 //category-blog
 app.use(
-  "/api/blog-category/update/:id",
+  "/api/blog-category/create",
   upload.single("image"),
-  blogCategoryController.updateCategoryBlog
+  blogCategoryController.createBlogCategory
 );
 app.use(
   "/api/blog-category/update/:id",

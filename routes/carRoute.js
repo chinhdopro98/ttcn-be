@@ -6,6 +6,7 @@ const {
   getCarByUser,
   approveCar,
   hishowCar,
+  totalData,
 } = require("../controller/carCtrl");
 const { authMiddleware } = require("../middlewares/authMiddleware");
 
@@ -17,6 +18,7 @@ router.delete("/delete/:id", deleteCar);
 router.patch("/approve/:id", approveCar);
 router.get("/user-car", authMiddleware, getCarByUser);
 router.patch("/hideshow/:id", hishowCar);
+router.get("/total", totalData);
 // router.get("/getallcars", async (req, res) => {});
 // router.post("/add-car", async (req, res) => {
 //   try {
